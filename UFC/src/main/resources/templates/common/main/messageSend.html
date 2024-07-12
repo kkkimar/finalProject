@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쪽지 쓰기</title>
+    <style>
+        #messageSendPopup {
+            width: 450px;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            position: fixed; /* fixed로 변경하여 화면 중앙에 위치하도록 함 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+            max-height: 100vh; /* 최대 높이를 뷰포트의 90%로 설정 */
+            overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+        }
+        #messageSendPopup h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        #messageSendPopup label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        #messageSendPopup .message-info {
+            margin-bottom: 10px;
+        }
+        #messageSendPopup .message-content {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            overflow-y: auto;
+        }
+        #messageSendPopup .button-container {
+            text-align: right;
+        }
+        #messageSendPopup button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        #messageSendPopup button[type="button"] {
+            background-color: #6c757d;
+        }
+        #messageSendPopup .closeMessageSend-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #000; /* 버튼 텍스트 색상을 검정색으로 설정 */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000; /* 버튼 테두리를 검정색으로 설정 */
+        }
+        #messageSendPopup .closeMessageSend-button:hover {
+            background-color: #f2f2f2; /* 버튼에 마우스를 올렸을 때 배경색 변경 */
+        }
+        /* input 태그 스타일링 */
+        #messageSendPopup input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+
+    <th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+    <div id="messageSendPopup">
+        <h2>쪽지 쓰기</h2>
+        <div class="messageSendForm">
+            <div>
+                <div class="message-info"><strong>받는이:</strong>
+                    <span class="member-email" th:if="${memberEmail != null}" th:text="${memberEmail}"></span>
+                    <input class="member-email" type="text" th:if="${memberEmail == null}">
+                </div>
+                <div class="message-info"><strong>제목:</strong><input type="text" id="messageTitle"></div>
+                <div><strong>내용</strong></div>
+                <div class="message-content" contenteditable="true" id="messageContent"></div>
+                <div class="button-container">
+                    <button type="button" onclick="sendMessage()">보내기</button>
+                    <button type="button" onclick="if (confirm('정말 닫으시겠습니까?')) { window.close(); }">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- 여기에 알림 html양식을 추가해서 js에서 만들 수 있게 해줘야 하나? -->
+<!-- <div class="header-body" style="display: none;">
+    <header class="header-container">
+        <div class="header-center">
+            <a href="/">UFC</a>
+        </div>
+        <div class="header-notification-container" th:if="${session.loginMember}">
+
+            <input type="checkbox" id="notification-toggle" class="header-notification-toggle">
+            <label for="notification-toggle" class="header-notification-btn fa-regular fa-bell"></label>
+
+            <ul class="header-notification-list" id="notification-list">
+                <li class="header-notification-item">
+                    <div class="header-notification-text">
+                        <div class="header-notification-content-container">
+                            <p class="header-notification-date">20분 전</p>
+                            <p class="header-notification-content">
+                                <b>test</b>님이
+                                <b>[1500번글]</b>을 좋아합니다
+                                asdasdasdasdas
+                                123123sssssssssssssssssssssssssssssssssssssssssssssssssss
+                            </p>
+                        </div>
+                    </div>
+                    <span class="header-notification-delete">&times;</span>
+                </li>
+            </ul>
+        </div>
+    </header>
+  </div> -->
+
+
+
+
+
+<!-- --------------------------------------------- -->
+
+
+<!-- <script th:inline="javascript">
+    const notificationLoginCheck = /*[[${session.loginMember} ? true : false]]*/ '로그인 체크';
+  </script>
+
+<script src="/js/common/header.js"></script> -->
+
+<script>
+    
+    
+
+    function sendMessage() {
+        
+        const memberEmailElements = document.querySelectorAll(".member-email");
+        let memberEmail = "";
+    
+        memberEmailElements.forEach(element => {
+            if (element.style.display !== "none") {
+                memberEmail = element.textContent || element.value; // textContent for span, value for input
+            }
+        });
+
+        const messageTitle = document.querySelector("#messageTitle").value;
+        const messageContent = document.querySelector("#messageContent").innerText;
+
+        if(messageTitle == "" || messageContent == "") {
+            alert("제목과 내용을 입력하세요.");
+            return;
+        }
+        
+
+        const obj = {
+            "memberEmail" : memberEmail,
+            "messageTitle"  : messageTitle,
+            "messageContent": messageContent
+        };
+
+        fetch("/message/sendMessage",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj)
+        })
+        .then(response => response.text())
+        .then(messageNo => {
+
+            var url = "/message/detail?messageNo=" + messageNo;
+            
+
+            alert("메시지 발송 성공!");
+
+            sendNotificationFn("sendMessage", url, messageNo);
+            window.close();
+            
+        })
+
+        
+        
+    }
+
+
+
+</script>
+</html>

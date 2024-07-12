@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서관 메인</title>
+  <link rel="stylesheet" href="/css/common/header.css">
+  <link rel="stylesheet" href="/css/libMain.css">
+</head>
+
+<body>
+
+  <div th:replace="~{common/header}"></div>
+  
+  <div th:replace="~{common/sidebar}"></div>
+
+  <div th:if="${session.loginMember != null }">
+    현재 로그인한 회원 : <span th:text="${session.loginMember.memberEmail}"></span>
+    <span>/</span>
+    memberAuthority: <span th:text="${session.loginMember.memberAuthority}"></span>
+  </div>
+
+  
+
+  <!-- 도서관 전용 nav bar 로그인 안된 경우 -->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/lib/libMain.js"></script>
+</body>
+
+</html>

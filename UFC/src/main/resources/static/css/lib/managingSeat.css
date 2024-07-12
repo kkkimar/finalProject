@@ -1,0 +1,518 @@
+* {
+  user-select: none;
+}
+
+.dispalyNone{
+  display: none;
+}
+
+.temp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dragging {
+  background-color: rgba(42, 191, 255, 0.3);
+  border: 2px dashed rgba(42, 191, 255, 0.6);
+  /* 테두리 추가 */
+}
+
+.selection-box {
+  position: absolute;
+  border: 2px dashed rgba(42, 191, 255, 0.6);
+  background-color: rgba(42, 191, 255, 0.3);
+  pointer-events: none;
+  /* 선택 박스는 클릭할 수 없도록 설정 */
+}
+
+.seat-chart {
+  display: grid;
+  grid-template-columns: repeat(20, 4.3vh);
+  grid-gap: 2px;
+  position: relative;
+
+  margin: 5vh 0px;
+  /* 좌석 차트를 기준으로 절대 위치 설정 */
+}
+
+.seat {
+  width: 4vh;
+  height: 4vh;
+  background-color: #ddd;
+  border: 1px solid #666;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.seat:hover{
+  border: 2px dotted rgba(255, 0, 0, 0.6);
+  color: yellow;
+  /* font-weight: bold; */
+
+  transition: all 0.3s;
+}
+
+
+
+/* ----------------- 열람실 버튼 css 시작 ----------------- */
+
+.buttonSack{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+
+  margin: 30px 0px;
+}
+
+.buttonSack > button {
+  
+  width: 250px;
+  height: 70px;
+  background-color: rgb(164, 150, 129);
+  color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 17px;
+
+}
+
+.buttonSack > button:hover{
+
+  cursor: pointer;
+
+  background-color: burlywood;
+  border: 2px solid rgb(117, 90, 53);
+  color: black;
+  transition: all 0.3s;
+}
+
+
+
+/* ----------------- 열람실 버튼 css  끝 ----------------- */
+
+/* 현재 이용중인 열람실 정보 간략하게 보여주는 부분 */
+
+.usingSeatInfo{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+/* ----------------- 샘플 좌석 보여주기 --------------------- 시작 */
+
+#seatSack{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  margin: 20px 20px;
+
+  background-color: rgba(222, 184, 135, 0.555);
+  border-radius: 20px;
+}
+
+.sampleSeatSack > h1{
+
+  border: 3px solid rgb(141, 97, 40);
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: rgba(222, 184, 135, 0.534);
+
+}
+
+.sampleSeatSack {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+
+  gap: 10px;
+}
+
+.sampleSeatPair {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* div와 span 사이의 간격을 원하는 크기로 조정 */
+}
+
+
+.can {
+  background-color: rgba(60, 179, 113, 1);
+}
+
+.cant {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+.saled {
+  background-color: rgb(225, 135, 0);
+}
+
+.sampleSeat {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+/* ----------------- 샘플 좌석 보여주기 --------------------- 끝 */
+
+
+
+/* 좌석 칸을 구분하는 배경색 설정  */
+
+
+.aisle {
+  background-color: gray;
+  border-radius: 5px;
+}
+
+.availSeat {
+  background-color: rgba(60, 179, 113, 1);
+  color: black;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
+}
+
+.disavailSeat {
+  background-color: rgba(255, 0, 0, 0.652);
+  color: black;
+  font-weight: bolder;
+  font-size: 13px;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
+}
+
+.nowUsing {
+  background-color: rgb(225, 135, 0);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid rgb(80, 45, 0);
+  border-radius: 5px;
+}
+
+/* 선택된 seat */
+.nowSelectedSeat{
+  background-color: rgba(66, 34, 12, 0.3);
+  border: 2px dashed rgba(46, 18, 0, 0.6);
+  color: black;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+/* ---------------------------- 공간이용에서 사용되는 css 만들기 -------------------------- */
+
+
+.RGB-Exhibition-1-rgba {
+  color: rgba(219, 186, 242, 1);
+}
+
+.RGB-Exhibition-2-rgba {
+  color: rgba(187, 162, 242, 1);
+}
+
+.RGB-Exhibition-3-rgba {
+  color: rgba(162, 216, 201, 1);
+}
+
+.RGB-Exhibition-4-rgba {
+  color: rgba(179, 242, 212, 1);
+}
+
+.RGB-Exhibition-5-rgba {
+  color: rgba(235, 242, 48, 1);
+}
+
+
+#seatPlan {
+  background-color: rgba(187, 162, 242, 0.5);
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.displayRow {
+  display: flex;
+  flex-direction: row;
+}
+
+#rRoomSign {
+
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+
+  margin: 10px 3px;
+  width: 90%;
+
+  border-radius: 7px;
+
+}
+
+#rRoomRowWindow {
+
+  border: 1px solid black;
+  text-align: center;
+  font-size: 20px;
+
+  margin: 10px 0px;
+
+  width: 50%;
+
+  border-radius: 7px;
+  background-color: rgba(162, 216, 201, 1);
+}
+
+#rRoomColWindow {
+
+  background-color: rgba(162, 216, 201, 1);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 20px;
+
+  margin: 0px 10px;
+
+  width: 30px;
+
+  display: flex;
+  align-items: center;
+  /* 수직 정렬 */
+  justify-content: center;
+  /* 수평 정렬 */
+
+  writing-mode: vertical-rl;
+  /* 영어, 숫자 등을 세로로 정렬. */
+  text-orientation: upright;
+
+  border-radius: 7px;
+}
+
+#entranceSack {
+
+  /* border: 1px solid black; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: 10px;
+}
+
+.entrance {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 30px;
+  margin: 50px 0px;
+  writing-mode: vertical-rl;
+  /* 영어, 숫자 등을 세로로 정렬. */
+  text-orientation: upright;
+  border-radius: 7px;
+}
+
+
+#editBtnSack {
+  margin: 20px 0px;
+}
+
+#editBtnSack>button {
+  height: 70px;
+  background-color: burlywood;
+  font-weight: 900;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+#editBtnSack > * {
+  border-radius: 7px;
+}
+
+#editBtnSack>button:hover {
+  cursor: pointer;
+  color: white;
+  background-color: rgb(163, 90, 61);
+  
+}
+
+
+
+
+/* -------------------- 모달 공통 설정 css --------------------- */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 15px;
+  border: 5px dashed rgba(54, 26, 0, 0.7);
+}
+
+/* ------------------ 자리 예약 모달 css ------------------ */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+
+}
+
+/* 닫기 버튼 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* 시간선택 */
+.time-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.time-picker select {
+  padding: 5px;
+  font-size: 16px;
+}
+
+
+
+
+/* -------------- 열람실 예약 모달 css -------------- */
+.checkMySeatReservationModal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+
+  border-radius: 10px;
+}
+
+
+.middleTitle{
+  color: rgb(66, 25, 18);
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px;
+}
+
+.checkMySeatContent{
+  font-size: 20px;
+  margin: 10px;
+}
+
+#checkMySeatReservationContent{
+  display: flex;
+  flex-direction: row;
+}
+
+#reservationBtnSack{
+margin-left: 200px;
+}
+
+#reservationBtnSack > button{
+  width: 250px;
+  height: 70px;
+  background-color: rgb(164, 150, 129);
+  color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+
+  font-size: 17px;
+}
+
+#reservationBtnSack > button:hover{
+  cursor: pointer;
+
+  background-color: burlywood;
+  border: 2px solid rgb(117, 90, 53);
+  color: black;
+  transition: all 0.3s;
+}
+
+
+/* ----------------- 로딩 모달 ----------------- */
+/* 모달 배경 */
+#loadingModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검정색 배경 */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* 모달이 다른 요소들 위에 오도록 설정 */
+}
+
+/* 모달 상자 */
+#modalBox {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 회전하는 원 */
+#modalCircle {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #ffffff; /* 원의 테두리 색상 */
+  border-top: 10px solid #3498db; /* 원의 상단 테두리 색상 (애니메이션 효과를 위해 다르게 설정) */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* 회전 애니메이션 */
+}
+
+/* 회전 애니메이션 키프레임 */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,230 @@
+<style>
+  .lib-semiheader-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2e2ce;
+  }
+
+  .program-header {
+    height: 15vh;
+    border-radius: 180px;
+    background-color: #BF9D5E;
+
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    color: black;
+    text-align: center;
+    margin-top: 65px;
+    width: 80vw;
+
+
+  }
+
+  .semiheader-contents {
+    justify-content: space-evenly;
+    display: flex;
+    align-items: center;
+
+  }
+
+
+  .program-header button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #D9BD89;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .program-header button:hover {
+    background-color: #ffffdd;
+    color: #333;
+  }
+
+  .svg-test {
+    width: 30px;
+    height: 30px;
+  }
+
+  .lib-nav-btn {
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.15);
+    height: 80%;
+    margin-top: 11px !important;
+    font-size: 15px;
+  }
+
+  .lib-program-title {
+    user-select: none;
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: 5px;
+  }
+
+  .managerBtnSack {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .managerBtnSack > a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 글자색을 상속 */
+    margin : 0px 10px;
+  }
+
+  #bookrReserveGuideModal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+  }
+
+  #guideModalBg {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid burlywood;
+  }
+
+  #BRGuideModalCloseBtn {
+    background-color: burlywood;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+    transition: background-color 0.3s ease;
+  }
+
+  #BRGuideModalCloseBtn:hover {
+    background-color: darkorange;
+  }
+
+  .guideModalTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: burlywood;
+  }
+
+  #guideModalBg > a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: burlywood;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  #guideModalBg > a:hover {
+    background-color: darkorange;
+  }
+
+</style>
+
+<body>
+  <section class="lib-semiheader-container">
+    <section class="program-header">
+      <div class="semiheader-contents">
+        <div>
+          <span class="lib-program-title">지식바다 도서관</span>
+        </div>
+
+        <div>
+
+          <!-- 로그인 안한 사람에게 보여질 버튼 -->
+          <th:block th:if="${session.loginMember==null}" class="libSemiHeaderBtnSack">
+            <a href="/book/bookList"><button class="lib-nav-btn">도서 검색</button></a>
+            <button onclick="nonLoginBtn()" class="lib-nav-btn"> 도서 예약</button>
+            <button onclick="nonLoginBtn()" class="lib-nav-btn">열람실</button>
+            <button onclick="nonLoginBtn()" class="lib-nav-btn">공간대여</button>
+          </th:block>
+
+          <!-- 일반 회원에게 보여질 버튼 -->
+          <div class="libSemiHeaderBtnSack"
+            th:if="${session.loginMember!=null and session.loginMember.memberAuthority != 3}">
+            <a href="/book/bookList"><button class="lib-nav-btn">도서 검색</button></a>
+            <button class="lib-nav-btn" onclick="openBookReservationModal()">도서 예약</button>
+            <a href="/libMain/toUseSeat"><button class="lib-nav-btn">열람실</button></a>
+            <a href="/libMain/toSpace"><button class="lib-nav-btn">공간 대여</button></a>
+            <a href="/libMember/member"><button class="lib-nav-btn">나의 도서관 이용 내역 확인하기</button></a>
+          </div>
+
+          <!-- 관리자 회원에게 보여질 버튼 -->
+          <div th:block class="managerBtnSack"
+            th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+            <a href="/loan/select"><button class="lib-nav-btn">대여 및 연장관리</button></a>
+            <a href="/libMain/managingSeatPage"><button class="lib-nav-btn">열람실 관리</button></a>
+            <a href="/libMain/managingSpace"><button class="lib-nav-btn">공간 관리</button></a>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </section>
+
+  <!-- 로그인 한 사람이 도서예약 눌렀을 때 보여질 모달 -->
+  <div id="bookrReserveGuideModal">
+    <div id="guideModalBg">
+      <div id="BRGuideModalCloseBtn" onclick="document.getElementById('bookrReserveGuideModal').style.display='none'">닫기 </div>
+      <div class="guideModalTitle">도서 예약 안내</div>
+      <div id="content">도서검색에서 원하는 도서 선택 후 <br> 도서 예약이 가능합니다.</div>
+      <a href="/book/bookList">도서 검색 바로 가기</a>
+    </div>
+  </div>
+
+
+
+
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const libSemiHeaderBtnSack = document.querySelector('.libSemiHeaderBtnSack');
+    const libNavBtn = document.querySelectorAll('.lib-nav-btn');
+
+    libNavBtn.forEach(item => {
+      item.addEventListener('click', function (event) {
+        if (!session.loginMember) {
+          alert("로그인 후 이용해 주세요.");
+          event.preventDefault();
+        }
+      });
+    });
+  });
+
+  function nonLoginBtn(e) {
+    alert("로그인 후 이용해 주세요.");
+    e.preventDefault();
+  }
+
+  function openBookReservationModal() {
+    const modal = document.getElementById('bookrReserveGuideModal');
+    modal.style.display = "block";
+  }
+</script>
+

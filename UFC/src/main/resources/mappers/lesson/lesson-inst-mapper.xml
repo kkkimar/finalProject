@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.lesson.instructor.model.mapper.LessonInstructorMapper">
+
+	<select id="selectInstList" resultType="LessonInstructor">
+		SELECT * FROM MEMBER JOIN LESSON_INSTRUCTOR USING (MEMBER_NO)
+	</select>
+
+	<select id="selectDetailInst" resultType="LessonInstructor">
+	SELECT * FROM MEMBER JOIN LESSON_INSTRUCTOR USING (MEMBER_NO) WHERE MEMBER_NO = #{instNo}
+	</select>
+	
+	<update id="regRequest">
+	UPDATE LESSON_INSTRUCTOR SET 
+	INST_STAT = 2 
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<select id="checkRequest" resultType="Integer">
+	 SELECT INST_STAT FROM LESSON_INSTRUCTOR WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<insert id="addToInstTable">
+	INSERT INTO LESSON_INSTRUCTOR VALUES(
+	#{memberNo}, 
+	2, 
+	#{instCategory}, 
+	#{instIntro},
+	#{instResume},
+	#{instInfo}
+	)
+	</insert>
+	
+	<select id="instRegCheck" resultType="Member">
+	SELECT * 
+	FROM MEMBER 
+	JOIN LESSON_INSTRUCTOR  USING (MEMBER_NO) 
+	WHERE INST_STAT = 2
+	</select>
+	
+	<update id="instAccept">
+	UPDATE LESSON_INSTRUCTOR SET INST_STAT = 0 
+	WHERE MEMBER_NO = #{memberNo}
+	</update>
+
+	<delete id="instReject">
+	DELETE FROM LESSON_INSTRUCTOR 
+	WHERE MEMBER_NO = #{memberNo}
+	</delete>	
+
+</mapper>

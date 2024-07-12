@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원서 목록</title>
+
+    <link rel="stylesheet" href="/css/gym/applicationList.css">
+    <th:block th:replace="~{common/common}"></th:block>
+</head>
+<body class="application-list-body">
+
+    <div th:replace="~{common/header}"></div>
+    <div th:replace="~{common/sidebar}"></div>
+    <th:block th:replace="~{gym/gymHeader}"></th:block>
+
+    <section class="application-list">
+
+        <h3>지원서 목록</h3>
+
+        <div class="list-wrapper">
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>지원서 번호</th>
+                        <th>지원분야</th>
+                        <th>성</th>
+                        <th>이름</th>
+                        <th>지원날짜</th>
+                        <th>현재상태</th>
+                        <th>상세보기</th>
+                        <th>처리상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr th:each="app : ${applications}" th:object="${app}">
+                        <td th:text="${app.applicationNo}"></td>
+                        <td th:text="${app.position}"></td>
+                        <td th:text="${app.memberLastName}"></td>
+                        <td th:text="${app.memberFirstName}"></td>
+                        <td th:text="${app.applyDate}"></td>
+                        <td>
+                            <span th:if="${app.memberAuthority} == 0">일반 회원</span>
+                            <span th:if="${app.memberAuthority} == 1">강사</span>
+                            <span th:if="${app.memberAuthority} == 2">트레이너</span>
+                            <span th:if="${app.memberAuthority} == 3">관리자</span>
+                        </td>
+                        <td><a th:href="@{/management/applicationDetail(applicationNo=${app.applicationNo})}" class="detail-link">상세 보기</a></td>
+                        <td>
+                            <span th:text="${app.status}">미완료</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </section>
+
+    <script src="/js/gym/appManagement.js"></script>
+    <th:block th:replace="~{/common/footer}"></th:block>
+
+</body>
+</html>

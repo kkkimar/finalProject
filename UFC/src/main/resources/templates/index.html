@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UFC</title>
+  <link rel="stylesheet" href="/css/common/header.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="/images/favicon.ico">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/lesson/main/lessonMain.css">
+  <link rel="stylesheet" href="/css/common/indexLib.css">
+  <link rel="stylesheet" href="/css/gym/gymMain.css">
+  <link rel="stylesheet" href="/css/member/signup-style.css">
+
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <link rel="stylesheet" href="/css/common/notification.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/js/lesson/main/lessonMain.js"></script>
+  <script src="/js/common/indexLib.js"></script>
+  <script src="/js/gym/gymMain.js"></script>
+  <!-- <script src="/js/member/signup.js"></script> -->
+
+  
+  
+<style>
+ .footer{
+  margin-top: -90px;
+  }
+
+</style> 
+
+</head>
+
+
+
+ 
+
+<body>
+  <div th:replace="~{common/header}"></div>
+  
+  <div th:replace="~{common/sidebar}"></div>
+
+ 
+
+
+
+  
+
+
+  <div class="main_wrapper">
+    <div class="main_container">
+      <ul class="tabs">
+
+        <li class="tab main" data-tab="main"><p class="tabTitle">Main</p></li>
+        <li class="tab library" data-tab="library"><p class="tabTitle">도서관</p></li>
+        <li class="tab lesson" data-tab="lesson"><p class="tabTitle">평생학습관</p></li>
+        <li class="tab health" data-tab="health"><p class="tabTitle">헬스장</p></li>
+        <li class="tab community" data-tab="community"><p class="tabTitle">BEST</p></li>
+        <li class="tab myPage" data-tab="myPage"><p class="tabTitle"
+          th:text="${session.loginMember != null ? 'myPage' : 'Login'}">myPage</p></li>
+        
+      </ul>
+
+
+      
+      <!-- 화면 전환 부분 -->
+      <div class="swiper" th:replace="~{common/main/swiper}"></div>
+      <div th:replace="~{common/main/lib}"></div>
+      <div th:replace="~{common/main/lesson}"></div>
+      <div th:replace="~{common/main/health}"></div>
+      <div th:replace="~{common/main/community}"></div>
+      <div th:replace="~{common/main/myPage}"></div>
+    </div>
+  </div>
+  
+<!-- <script src="/js/common/header.js"></script> -->
+</body>
+
+<div th:replace="~{common/footer}"></div>
+
+
+<script src="/js/index.js"></script>
+
+<script th:inline="javascript">
+  const message =  /*[[${message}]]*/ "전달 받은 message";
+  if (message != null) alert(message);
+  const loginCheck = /*[[${session?.loginMember} ? true : false]]*/ '로그인 체크';
+  
+
+</script>
+
+<script src="/js/common/main.js"></script>
+<script src="/js/common/message.js"></script>
+
+</html>

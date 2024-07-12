@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/lib/managingSeat.css">
+  <link rel="stylesheet" href="/css/common/header.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
+  <title>좌석 관리 페이지</title>
+
+
+  <style>
+    .seat:hover {
+      pointer-events: none;
+    }
+    .seat.availSeat:hover,
+    .seat.disavailSeat:hover,
+    .seat.aisle:hover {
+      pointer-events: all;
+    }
+  </style>
+</head>
+
+<body>
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+
+
+
+
+  <!-- <span>이메일 : </span><span th:text="${session.loginMember.memberEmail}"></span>
+
+  <br>
+  <span>회원 등급 : </span><span th:text="${session.loginMember.memberAuthority}"></span> -->
+
+  <!-- 좌석이 만들어지는 section 칸 -->
+
+  <!-- 열람실 좌석 배치도 -->
+  <section id="seatPlan">
+    <!-- 1. 열람실 간판 -->
+    <div id="rRoomSign" style="background-color: orange;">
+      UFC 도서관 열람실 편집 공간
+    </div>
+
+    <!-- 2. 가로 창문 -->
+    <div id="rRoomRowWindow"> 창 문 </div>
+
+    <!-- 3. 창문, 좌석, 출입구 모음 -->
+    <div class="displayRow">
+
+      <!-- 3.1 세로 창문 -->
+      <div id="rRoomColWindow">창 문 </div>
+
+      <!-- 3.2 좌석 모음 -->
+      <div class="seat-chart" id="seatChart"></div>
+
+      <!-- 3.3 출입구 모음 -->
+      <div id="entranceSack">
+        <!-- 3.3.1 출입구 1 -->
+        <div class="entrance"> 출입구 </div>
+        <!-- 3.3.2 출입구 2 -->
+        <div class="entrance"> 출입구 </div>
+      </div>
+
+    </div>
+
+    <!-- 4. 버튼 모음 -->
+    <div id="editBtnSack">
+      <button class="editBtn" id="loadSeat">좌석 배치 불러오기</button>
+      <button class="editBtn" id="clearSeat">전부 통로로 초기화</button>
+      <button class="editBtn" id="doneSeat">자리 번호 확인하기</button>
+      <button class="editBtn" id="saveSeat">변경사항 저장하기</button>
+      <button class="redBtn" onclick="banAllSeatUsers()">편집을 위해 모든 회원 이용 종료시키기</button>
+      
+    </div>
+
+  </section>
+
+  <!-- 로딩창 모달 -->
+  <div id="loadingModal">
+
+    <div id="modalBox">
+
+      <div id="modalCircle"></div>
+
+    </div>
+
+  </div>
+
+
+</body>
+<script src="/js/lib/managingSeat.js"></script>
+
+</html>

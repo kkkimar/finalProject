@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="edu.kh.cooof.lib.seat.model.mapper.LibSeatMapper">
+
+	<!-- 모든 좌석 불러오기 -->
+	<select id="getAllSeats"
+		resultType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+		SELECT SEAT_NO, COORDI_X AS coordiX, COORDI_Y AS coordiY,
+		CONDITION,
+		SEAT_AVAIL
+		FROM SEAT
+	</select>
+
+	<!-- 좌석 편집 현황 지우기 -->
+	<delete id="deleteAllSeats">
+
+		DELETE FROM SEAT
+
+	</delete>
+
+	<!-- 좌석 이용 현황 지우기 -->
+	<delete id="deleteRentSeat">
+
+		DELETE FROM RENT_SEAT
+
+	</delete>
+
+	<!-- 좌석 편집 현황 저장하기 -->
+	<insert id="insertSeat">
+
+		INSERT INTO SEAT (SEAT_NO, COORDI_X, COORDI_Y, CONDITION)
+		VALUES (#{seatNo},
+		#{coordiX}, #{coordiY}, #{condition})
+
+	</insert>
+
+
+	<select id="isMemberUsing" resultType="_int">
+
+		SELECT COUNT(*)
+		FROM RENT_SEAT
+		WHERE MEMBER_NO = #{memberNo}
+
+	</select>
+
+	<!-- 열람실 좌석 이용하기 -->
+	<!-- seatNo2 = db 자리 번호 -->
+	<insert id="useSeat" parameterType="map">
+        <![CDATA[
+        BEGIN
+            INSERT INTO RENT_SEAT
+            (RENT_SEAT_NO, READING_START, READING_DONE, READING_EXTEND, SEAT_NO2, MEMBER_NO)
+            VALUES (SEQ_SEAT_NO.NEXTVAL, DEFAULT, SYSDATE + INTERVAL '4' HOUR, DEFAULT, #{seatNo2}, #{memberNo});
+
+            UPDATE SEAT 
+            SET SEAT_AVAIL = 1
+            WHERE SEAT_NO = #{seatNo2};
+        END;
+        ]]>
+	</insert>
+
+
+	<!-- 열람실 이용 종료하기 -->
+	<select id="getMemberUsingSeat" resultType="int">
+        SELECT s.SEAT_NO
+        FROM RENT_SEAT rs
+        JOIN SEAT s
+        ON rs.SEAT_NO2 = s.SEAT_NO
+        WHERE rs.MEMBER_NO = #{memberNo} AND s.CONDITION = 1
+    </select>
+
+    <update id="clearMemberFromSeat">
+        DELETE FROM RENT_SEAT
+        WHERE SEAT_NO2 = #{seatNo}
+    </update>
+
+    <update id="clearConditionFromSeat">
+        UPDATE SEAT
+        SET SEAT_AVAIL = 0
+        WHERE SEAT_NO = #{seatNo}
+    </update>
+
+	<!-- 열람실 연장하기 -->
+	<update id="extendSeat">
+        UPDATE RENT_SEAT
+        SET READING_DONE = READING_DONE + INTERVAL '4' HOUR,
+            READING_EXTEND = READING_EXTEND - 1
+        WHERE MEMBER_NO = #{memberNo}
+          AND READING_EXTEND > 0
+    </update>
+    
+    
+	<!-- 내 자리에 다른 예약이 있는지 확인하기 -->
+	<select id="checkOtherReservation">
+	
+		SELECT COUNT(*)
+	    FROM SEAT_SPACE_BOOKING ssb
+	    WHERE ssb.SEAT_NO = #{seatNo}
+	    AND ssb.START_BOOKING BETWEEN (
+	        SELECT MAX(rs.READING_START)
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO2 = #{seatNo2}
+	    ) AND (
+	        SELECT MAX(rs.READING_DONE) + INTERVAL '4' HOUR
+	        FROM RENT_SEAT rs
+	        WHERE rs.SEAT_NO2 = #{seatNo2}
+	    )
+	
+	</select>
+	
+	<!-- 연장 기회 확인하기 -->
+	<select id="checkExtendChance">
+	
+		SELECT READING_EXTEND
+		FROM RENT_SEAT
+		WHERE MEMBER_NO = #{memberNo}
+	
+	</select>
+
+	<!-- 좌석의 이용 가능 여부 확인하기 -->
+	<select id="chckSeatConditon">
+		SELECT COUNT(*) FROM SEAT
+		WHERE SEAT_NO = #{seatNo}
+		AND SEAT_AVAIL = 1
+	</select>
+	
+	<!--현재 다른사람이 이용 중인 열람실을 예약했을 때,
+		열람실을 예약한 시간과 종료예정시간이 겹치는지 확인-->
+	<select id="checkStartTime" parameterType="map">
+		SELECT COUNT(*)
+        FROM RENT_SEAT 
+        WHERE SEAT_NO2 = #{seatNo}
+        AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') 
+        BETWEEN READING_START  AND READING_DONE
+	</select>
+	
+	<!-- 열람실 자리 예약하기 -->
+	 <insert id="seatBooking" parameterType="map">
+        INSERT INTO SEAT_SPACE_BOOKING (
+            BOOKING_SS_NO, START_BOOKING, END_BOOKING, MEMBER_NO, SPACE_NO, SEAT_NO
+        ) VALUES (
+            SEQ_BOOKING_SS_NO.NEXTVAL, 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI'), 
+            TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD') || ' ' || #{startTime}, 'YYYY-MM-DD HH24:MI') + INTERVAL '4' HOUR, 
+            #{memberNo}, 
+            NULL,
+            #{seatNo} 
+        )
+    </insert>
+    
+    <!-- db자리, 유저 자리no를 계산 할 결과 구하기 -->
+    <select id="getCacRealSeatNo">
+    	SELECT COUNT(*)
+	    FROM SEAT
+	    WHERE CONDITION = 0
+	    AND SEAT_NO &lt;= #{seatNo}
+    </select>
+    
+    <!-- 나의 자리 이용 정보 구하기 -->
+    <select id="getMySeatInfo" parameterType="edu.kh.cooof.lib.seat.model.dto.LibSeatDTO">
+    	SELECT READING_START AS readingStart, 
+		READING_DONE AS readingDone, READING_EXTEND AS readingExtend
+		FROM RENT_SEAT rs 
+		WHERE MEMBER_NO = #{memberNo}
+    </select>
+
+
+	<!-- 나의 열람실 예약 정보 받아오기 -->
+	<select id="checkMySeatReservation" resultType="map">
+	    SELECT START_BOOKING AS startBooking, SEAT_NO AS seatNo 
+	    FROM SEAT_SPACE_BOOKING ssb 
+	    WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+
+	<!-- 열람실 예약 취소하기 -->
+	<delete id="cancleSeatBooking">
+		DELETE 
+		FROM SEAT_SPACE_BOOKING
+		WHERE MEMBER_NO = #{memberNo}
+		AND SPACE_NO IS NULL
+	</delete>
+	
+	<update id="updateSeatsAvail2">
+		UPDATE SEAT SET SEAT_AVAIL = 0
+	</update>
+	
+	<delete id="deleteAllSeatUsers">
+		DELETE FROM RENT_SEAT
+	</delete>
+	
+	<delete id="deleteAllSeatSpaceRent">
+		DELETE FROM SEAT_SPACE_BOOKING
+	</delete>
+	
+	<select id="isMemberUsingSpace">
+		SELECT COUNT(*) FROM RENT_SPACE
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+</mapper>

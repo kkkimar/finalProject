@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN " "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.cooof.gym.application.model.mapper.ApplicationMapper">
+	
+<insert id="insertApplication">
+	INSERT INTO APPLICATION (APPLICATION_NO, MEMBER_NO, POSITION, APPLY_ROUTE, RESUME_PATH, APPLY_DATE, STATUS , TRAINER_PRICE , TRAINER_IMG)
+	VALUES (SEQ_APPLICATION_NO.NEXTVAL, 
+			#{memberNo}, 
+			#{position}, 
+			#{applyRoute}, 
+			#{resumePath}, 
+			#{applyDate},
+			#{status},
+			#{trainerPrice},
+			#{trainerImg}
+			)
+</insert>
+	
+
+
+</mapper>

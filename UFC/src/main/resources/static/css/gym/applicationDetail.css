@@ -1,0 +1,98 @@
+/* applicationDetail.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2e2ce;
+}
+
+.application-detail {
+    width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.application-detail h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.detail-wrapper p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.detail-wrapper p strong {
+    display: inline-block;
+    width: 150px;
+    color: #555;
+}
+
+.detail-wrapper a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.detail-wrapper a:hover {
+    text-decoration: underline;
+}
+
+.button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.button-wrapper .okArea,
+.button-wrapper .noArea,
+.button-wrapper .changeArea {
+    flex: 1;
+    text-align: center;
+}
+
+.button-wrapper button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.button-wrapper .okArea button {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.button-wrapper .okArea button:hover {
+    background-color: #218838;
+}
+
+.button-wrapper .noArea button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.button-wrapper .noArea button:hover {
+    background-color: #c82333;
+}
+
+.detail-wrapper {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.detail-wrapper p {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.detail-wrapper p:last-child {
+    border-bottom: none;
+}

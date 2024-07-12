@@ -1,0 +1,388 @@
+
+* {
+  list-style: none;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2e2ce;
+}
+
+
+
+.logo {
+  height: 50px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.user-options a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+
+
+.program-search {
+  background-color: #f2e2ce!important;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.breadcrumb {
+  margin-bottom: 10px;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #333;
+}
+
+.search-bar {
+  background-color: #f2e2ce!important;
+  display: flex;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #bf9d5e;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.program-list {
+    padding: 20px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    max-width: 1350px; /* 최대 너비 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 선택 사항: 컨테이너에 그림자 추가 */
+    background-color: #fff; /* 선택 사항: 배경 색상 추가 */
+    border-radius: 8px; /* 선택 사항: 모서리 둥글게 */
+}
+
+.filter-options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.filter-options button {
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  background-color: #f7f7f7;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-options button:hover {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.programs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.program-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.program-card img {
+  width: 150px;
+  height: 200px;
+  margin-right: 20px;
+  object-fit: cover;
+}
+
+.program-info {
+  flex-grow: 1;
+}
+
+.program-info .label {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  margin-right: 5px;
+  font-size: 12px;
+
+  border-radius: 180px;
+}
+
+.program-info .category {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: green;
+  color: white;
+  font-size: 12px;
+
+  border-radius: 180px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pagination a {
+  user-select: none;
+  border-radius: 180px;
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.pagination a.active {
+  background-color: #bf9d5e;
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.footer-container {
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.footer-container p,
+.footer-container address {
+  margin: 10px 0;
+}
+
+.footer-container address {
+  font-style: normal;
+}
+
+/* 기존 스타일은 그대로 두고 검색창에 대한 스타일 추가 */
+.program-search {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    display: flex;
+    background-color: #f7f7f7;
+    border-radius: 5px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    width: 100%;
+    max-width: 800px;
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none; /* 테두리 제거 */
+    border-radius: 5px 0 0 5px; /* 좌측 모서리 둥글게 */
+    outline: none; /* 포커스시 아웃라인 제거 */
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #bf9d5e;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0; /* 우측 모서리 둥글게 */
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.search-bar .advanced-search {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #bf9d5e;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px; /* 모서리 둥글게 */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-bar .advanced-search:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.advanced-search-options {
+    display: none; /* 초기에는 숨김 */
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.advanced-search-options div {
+    margin-bottom: 15px;
+}
+
+.advanced-search-options button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #ffffff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.advanced-search-options button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.search-button button {
+    background-color: #bf9d5e;
+    color: white;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.search-button button:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+    
+.clicked {
+  background-color: #bf9d5e !important;
+  color: white !important;
+}
+
+.detail-view-link {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+}
+
+.detail-view-link:hover {
+  text-decoration: underline;
+}
+
+
+.bg-picture-top{
+content: '';
+position: absolute;
+right: 0;
+top: 400px;
+width: 500px;
+height: 400px;
+background: url(/images/lesson/bg-top.png);
+pointer-events: none;
+z-index: -1; /* 가장 아래로 설정 */
+
+}
+
+.bg-picture-btm {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 329px;
+  width: 561px;
+  height: 781px;
+  background: url(/images/lesson/bg-btm.png);
+  pointer-events: none;
+}
+
+.wish-btn {
+  margin-top: 10px;
+  cursor: pointer;
+  width: 18px;
+}
+
+/* ----------------------------- */
+
+.messageDropdown {
+cursor: pointer;
+}
+
+.messageDropdown:hover {
+color: gray; /* 색상을 원하는 대로 변경할 수 있습니다 */
+}
+
+.dropdown-content {
+display: none;
+background-color: white;
+min-width: 100px;
+box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+z-index: 1;
+border: 1px solid #ccc;
+}
+
+.dropdown-content a {
+color: black;
+padding: 10px 12px;
+text-decoration: none;
+display: block;
+}
+
+.dropdown-content a:hover {
+background-color: #f1f1f1;
+}
+
+.show {
+display: block;
+}
+
+/* ----------------------------- */
+

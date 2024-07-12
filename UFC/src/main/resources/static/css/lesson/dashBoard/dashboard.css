@@ -1,0 +1,431 @@
+body{
+  background-color: #f2e2ce;
+}
+
+.less_dashboard {
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+}
+
+.less_header {
+  text-align: center;
+  /* padding: 20px; */
+  border-bottom: 2px solid #333;
+}
+
+.less_header_display {
+  color: #2a2a4a;
+}
+
+.less_main_content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+.left_column {
+  /* flex-grow, flex-shrink, flex-basis */
+  flex: 1 1 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right_column {
+  flex: 1 1 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.less_attendance {
+  background-color: #FFFDE7;
+  padding:10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 30%;
+  
+
+}
+
+.less_attendance > h4 {
+  text-align: center;
+  font-size: 18px;
+}
+
+.less_schedule {
+  background-color: #FFFDE7;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+  overflow-y: scroll;
+}
+
+/* 대시보드 추가 설명 */
+.less_description{
+  display: flex;
+  position: absolute;
+  top: 30px; right: 30px;
+  width: 70px;
+  height: 30px;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.less_description > div:nth-of-type(1){
+  width: 10px;
+  height: 10px;
+  background: gold;
+  border-radius: 100%;
+}
+
+.less_description span {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.less_lectures {
+  background-color: #FFFDE7;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.less_rating {
+  background-color: #FFFDE7;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  
+}
+
+.less_write_rating {
+  background-color: #FFFDE7;
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+
+}
+
+.less_attendance_rate {
+  display: flex;
+  justify-content: center
+}
+
+/* #bar-chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-right: 20px;
+} */
+
+.less_circle > canvas {
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  /* border-radius: 50%; */
+  /* background-color: #FFFD74; */
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  /* font-size: 28px; */
+  /* margin-right: 20px; */
+}
+
+.less_circle span {
+  color: black;
+}
+
+.less_details p {
+  margin: 0;
+}
+
+.less_schedule{
+  height: 100%;
+}
+
+.less_schedule h2{
+  
+  height: 10px;
+  
+}
+
+.less_schedule #calendar {
+  height: 85% ;
+  z-index: 100;
+}
+
+.less_lectures ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.less_lectures li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #555;
+}
+
+.less_lectures li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.less_remove_star {
+  background-color: #FFFD74;
+  border: none;
+  color: navy;
+  font-weight: bold;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.less_rating_section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.less_rating_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.less_rating_content label, .less_rating_content select, .less_rating_content .stars, .less_rating_content button {
+  background-color: #a7c4ac;
+  border: none;
+  color: #000;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#lectureSelect {
+  cursor: pointer;
+}
+
+.star_point_container {
+  display: flex;
+  align-items: center;
+}
+
+.star_background {
+  display: flex;
+}
+
+.star_background img {
+  width: 50px;
+  cursor: pointer;
+}
+
+.less_remove_star {
+  width: 22px;
+  height: 22px;
+  margin-left: 12px;
+}
+
+#reviewBtn {
+  cursor: pointer;
+}
+
+#reviewBtn:hover{
+  background-color: #8fa693;
+}
+
+#lecture_list {
+  height: 80%;
+  overflow-y: auto;
+}
+
+/* 출석부 팝업 레이어 */
+#less_attendancePopup {
+  display: none;
+  flex-direction: column;
+  width: 500px;
+  height: 500px;
+  border: 3px solid pink;
+  background: whitesmoke;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.less_popup_content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 10px;
+}
+
+.popup_close_btn {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#less_attendanceForm {
+  height: 400px;
+  position: relative;
+}
+
+#less_attendanceForm > input {
+  height: 20px;
+}
+
+#less_attendance_ny {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.less_popup_hidden {
+  display: none;
+}
+
+#less_attendanceTable{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+#less_attendanceTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+/* 풀캘린더  */
+/* .fc-event-time{
+  display: block !important;
+}
+
+.fc-daygrid-dot-event{
+  display: block;
+} */
+
+
+/* 수료증 발급창 css */
+
+/* 모달 창 기본 스타일 */
+.dashboard-modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+/* 모달 창 콘텐츠 스타일 */
+.dash-board-modal-content {
+  background-color: #fff;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #ccc;
+  width: 400px; 
+  height: 300px;
+  animation: slideIn 0.4s;
+  position: relative;
+}
+
+@keyframes slideIn {
+  from {transform: translateY(-20%);}
+  to {transform: translateY(0);}
+}
+
+.dash-board-modal-content h2{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.dash-certificate-box{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+
+/* 닫기 버튼 스타일 */
+.dashboard-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.dashboard-modal-close:hover,
+.dashboard-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.certificate-modal-open,#certificateFrm > button
+{
+  display: block;
+  /* 블록 요소로 설정 */
+  position: relative;
+  /* 상대 위치 설정 */
+  float: left;
+  /* 왼쪽 정렬 */
+  width: 120px;
+  /* 너비 설정 */
+  padding: 0;
+  /* 내부 여백 제거 */
+  margin: 10px 5px 10px 0; 
+  /* 마진 설정
+  font-weight: 600;
+  /* 글꼴 굵기 설정 */
+  text-align: center;
+  /* 텍스트 중앙 정렬 */
+  line-height: 30px;
+  /* 줄 높이 설정 */
+  color: #FFF;
+  /* 글꼴 색상 설정 */
+  border-radius: 180px;
+  /* 모서리 둥글게 설정 */
+  transition: all 0.2s;
+  /* 모든 변화에 대한 전환 효과 설정 */
+  background: #e5bf78;
+  /* 배경 색상 설정 */
+  border: none;
+  /* 테두리 제거 */
+}
+
+.certificate-modal-open:hover{
+  background: #a0a0a0;
+}
+
+
+#certificateFrm > button{
+  position: absolute;  
+  bottom: 20px; right: 20px;
+}

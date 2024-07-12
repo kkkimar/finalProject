@@ -1,0 +1,282 @@
+<style>
+
+  
+
+  .lesson-semiheader-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color:#f2e2ce;
+  }
+
+  .program-header {
+    height: 100px;
+    border-radius: 180px;
+    background-color: #BF9D5E;
+    box-sizing: content-box;
+    padding: 20px;
+    color: black;
+    text-align: center;
+    margin-top: 61px;
+    width: 80%;
+
+
+  }
+
+  .semiheader-contents {
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: 15px;
+
+  }
+
+  .program-header .semiheader-contents {
+    margin-top: 15px;
+  }
+
+  .program-header button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #D9BD89;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .program-header button:hover {
+    background-color: #ffffdd;
+    color: #333;
+  }
+
+  .svg-test {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* 여기서부터 SNS 링크들 CSS */
+  .sns-share-container {
+    display: flex;
+    height: auto;
+    flex-direction: row-reverse;
+    margin-top: 5px;
+    margin-right: 350px;
+    margin-bottom: 0px;
+    padding: 3px;
+  }
+
+  .fa-2xl {
+    padding-left: 30px;
+  }
+
+  /* css 수정 */
+  .sns-section {
+    display: flex;
+    justify-content: flex-end;
+    background-color:#f2e2ce;
+
+  }
+
+  .sns_wrapper {
+    display: inline-flex;
+    /* Flexbox를 사용하여 컨테이너를 동그랗게 설정 */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    /* background-color: #00b266; */
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    justify-content: center;
+    /* 수평 가운데 정렬 */
+    margin: 5px;
+
+  }
+
+  .sns_wrapper a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .sns-share-container>.sns_wrapper:nth-of-type(1)>a {
+    background-color: #00b266;
+  }
+
+  .sns-share-container>.sns_wrapper:nth-of-type(2)>a {
+    background-color: #FAE100;
+  }
+
+  .sns-share-container>.sns_wrapper:nth-of-type(3)>a {
+    background-color: #1877F2;
+  }
+
+  .sns-share-container>.sns_wrapper:last-of-type>a {
+    background-color: #1da1f2;
+  }
+
+  .sns_wrapper i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-78%, -50%);
+    font-size: 22px;
+    /* 아이콘 크기 조절 */
+
+  }
+
+  .lesson-nav-btn {
+    border-radius: 180px;
+    background: rgba(0, 0, 0, 0.15);
+    height: 80%;
+    margin-top: 11px !important;
+    font-size: 15px;
+  }
+
+  .lesson-program-title {
+    user-select: none;
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: 5px;
+  }
+
+
+  #lessonSearch {
+    background-color: #F2E2CE;
+  }
+</style>
+
+<section class="lesson-semiheader-container">
+  <section class="program-header">
+
+
+
+    <div class="semiheader-contents">
+      <div>
+        <span class="lesson-program-title">평생교육 프로그램</span>
+      </div>
+      <div>
+        <a href="/lesson"><button class="lesson-nav-btn">수강규정 및 신청방법</button></a>
+        <a href="/lesson/list"><button class="lesson-nav-btn">프로그램 안내/신청</button></a>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority != 3}">
+          <a href="/lesson/dashboard"><button class="lesson-nav-btn">회원 대시보드</button></a>
+        </th:block>
+
+        <a href="/lesson/inst"><button class="lesson-nav-btn">강사 현황</button></a>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 0}">
+          <a href="/lesson/inst/reg"><button class="lesson-nav-btn">강사 지원</button></a>
+        </th:block>
+
+        <th:block th:if="${session.loginMember != null and session.loginMember.memberAuthority == 3}">
+          <a href="/lesson/inst/regCheck"><button class="lesson-nav-btn">지원서 확인</button></a>
+        </th:block>
+
+
+
+      </div>
+    </div>
+
+  </section>
+</section>
+
+<section class="sns-section">
+  <div class="sns-share-container">
+
+    <!-- 네이버 공유 -->
+    <div class="sns_wrapper">
+      <a id="naver-share-link" href="#">
+        <i class="fa-solid fa-blog fa-2xl" style="color: #000;"></i>
+      </a>
+    </div>
+
+
+    <script>
+      // 현재 페이지의 URL과 제목을 인코딩
+      var decodeUri = encodeURIComponent(window.location.href);
+      var encodeTitle = encodeURIComponent(document.title);
+
+      // 링크에 URL과 제목을 설정
+      var naverShareLink = 'http://blog.naver.com/openapi/share?url=' + decodeUri;
+      document.getElementById('naver-share-link').href = naverShareLink;
+    </script>
+
+
+	
+
+
+
+
+
+    <!-- 카카오 공유 -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+    integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+    crossorigin="anonymous"></script>
+    <script>
+    Kakao.init('ef7339c7be50d1426f12f9213331158d'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+<div class="sns_wrapper">
+  <a id="kakaotalk-sharing-btn" href="javascript:;">
+    <i class="fa-solid fa-comment fa-2xl" style="color: #000;"></i>
+  </a>
+</div>
+<script>
+
+
+
+  document.getElementById('kakaotalk-sharing-btn').onclick = function () {
+    Kakao.Share.createScrapButton({
+      container: '#kakaotalk-sharing-btn',
+      requestUrl: window.location.href
+    });
+  }
+</script>
+  
+    
+
+    <!-- 페이스북 공유 -->
+    <div class="sns_wrapper">
+      <a id="facebook-share-btn" href="javascript:;">
+        <i class="fa-brands fa-facebook fa-2xl" style="color: #000;"></i>
+        <!-- <img src="#" alt="페이스북 공유 버튼" /> -->
+      </a>
+    </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v20.0"
+      nonce="xZ20ocGx"></script>
+    <script>
+      document.getElementById('facebook-share-btn').onclick = function () {
+        window.open(
+          'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href),
+          'facebook-share-dialog',
+          'width=800,height=600'
+        );
+        return false;
+      }
+    </script>
+
+    <!-- 트위터 공유 -->
+    <div class="sns_wrapper">
+      <a id="twitter-share-btn" href="javascript:;">
+        <!-- <img src="#" alt="트위터 공유 버튼" /> -->
+        <i class="fa-brands fa-twitter fa-2xl" style="color: #000;"></i>
+      </a>
+    </div>
+    <script>
+      document.getElementById('twitter-share-btn').onclick = function () {
+        window.open(
+          'http://twitter.com/share?url=' + encodeURIComponent(location.href) + '&text=' + encodeURIComponent(document.title),
+          'twitter-share-dialog',
+          'width=800,height=600'
+        );
+        return false;
+      }
+    </script>
+  </div>
+</section>

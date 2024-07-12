@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/header.css">
+  <!-- 도서관 전용 헤더 스타일로만 사용하기!! -->
+  <link rel="stylesheet" href="/css/libMain.css">
+  <link rel="stylesheet" href="/css/lib/managingSpace.css">
+  <link rel="stylesheet" href="/css/common/sidebar.css">
+
+  <title>대여공간 관리자 페이지</title>
+
+</head>
+
+<body>
+
+  <!-- 공용 헤더 -->
+
+  <div th:replace="~{common/header}"></div>
+  <div th:replace="~{common/sidebar}"></div>
+  <th:block th:replace="~{lib/libCommon/libSemiHeader}"></th:block>
+
+  <div class="spaceManager">
+
+    <!-- 출입구 표시 -->
+    <div id="exitSack">
+      <div class="exit">출입구</div>
+      <div class="exit">출입구</div>
+    </div>
+
+    <!-- 생성된 div가 표시되는 부분 -->
+    <div id="drawingArea">
+
+    </div>
+
+    <!-- 컨트롤 패널 -->
+    <div class="etcSack">
+
+      <!-- 컨트롤 일반 -->
+      <div class="controlPanel">
+        <button onclick="openHowToEditSpaceModal()">편집 방법 안내</button>
+        <button id="createButton">공간 생성하기</button>
+        <button id="assignButton">번호 부여하기</button>
+        <button id="editButton">수동 편집</button>
+      </div>
+
+      <div class="controlPanel">
+        <button onclick="banAllSpaceUsers()">편집을 위해 <br> 모든 회원 이용 종료</button>
+        <button id="saveData"> 공간 편집 저장하기 </button>
+        <button id="loadData"> 이전 편집 불러오기 </button>
+        <button id="clearAll"> 편집 중인 공간 지우기 </button>
+      </div>
+
+
+      <div id="sizeForm">
+
+        <br><br><br>
+        <span>현재 선택한 공간 번호 : <span id="currentSelectSpace"></span> </span> <br>
+        <label for="width">가로 길이:</label>
+        <input type="number" id="width" name="width" class="setSize"> px<br>
+        <label for="height">세로 길이:</label>
+        <input type="number" id="height" name="height" class="setSize"> px<br>
+        <button id="applySize">크기 적용</button>
+
+        <button id="changeAvail">공간의 상태 변경하기</button>
+        <button id="delSpace">선택한 공간 지우기</button>
+      </div>
+    </div>
+
+    <!-- 생성된 div 크기 조정 -->
+
+
+  </div>
+
+  </div>
+
+ <!-- 공간 상태 변경에 사용되는 모달 -->
+ <div id="customModal" class="modal">
+  <div class="modalContent">
+    <span class="closeButton">&times;</span>
+    <p>변경할 공간 상태를 선택하세요</p>
+    <p>현재 공간의 상태 : <span id="currentSpaceStatus"></span></p>
+    <button class="modalOption" data-option="0">사용 가능으로 설정</button>
+    <button class="modalOption" data-option="2">사용 불가능으로 설정</button>
+    <button class="modalOption" data-option="3">변경 사항 저장하기</button>
+  </div>
+</div>
+
+<!-- 편집 방법 안내 모달 -->
+<div id="howToEditSpaceModal" class="modal">
+  <div class="modalContent">
+    <div class="closeButton">&times;</div>
+    <div><span class="howToTitle">공간 생성하기 </span>: 자동으로 100 * 100px의 공간을 생성합니다.</div>
+    <div><span class="howToTitle">번호 부여하기</span> : 생성된 공간에 자동으로 번호를 부여합니다.</div>
+    <div><span class="howToTitle">공간 편집하기</span> : 수동으로 공간을 그려서 생성 가능합니다.</div>
+  </div>
+</div>
+</body>
+<script src="/js/lib/spaceManaging.js"></script>
+
+</html>
